@@ -1,0 +1,8 @@
+#!/bin/bash
+
+export APPIOT_REGISTRATION_TICKET='<REGISTRATION-TICKET>'
+export APPIOT_COUCHDB_URL='<COUCHDB-URL>'
+export APPIOT_COUCHDB_USER='<COUCHDB-USER>' # Optional
+export APPIOT_COUCHDB_PASSWORD='<COUCHDB-PASSWORD>' # Optional
+
+java -jar appiot-owm.jar
