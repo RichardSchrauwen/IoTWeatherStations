@@ -6,7 +6,6 @@ fi
 sudo docker rm -f "owm-appiot-$1"
 sudo docker run \
   -it \
-  --rm \
   -e APPIOT_REGISTRATION_TICKET='<REGISTRATION-TICKET>' \
   -e APPIOT_COUCHDB_URL='<COUCHDB-URL>' \
   -e APPIOT_COUCHDB_USER='<COUCHDB-USER>' \
