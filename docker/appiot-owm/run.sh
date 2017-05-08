@@ -23,8 +23,8 @@ if [ -z $APPIOT_COUCHDB_URL ]; then
 fi
 
 
-sudo docker rm -f "appiot-owm-$APPIOT_CONTAINER_NAME" > /dev/null 2>&1
-sudo docker run \
+docker rm -f "appiot-owm-$APPIOT_CONTAINER_NAME" > /dev/null 2>&1
+docker run \
   -e APPIOT_REGISTRATION_TICKET="$APPIOT_REGISTRATION_TICKET" \
   -e APPIOT_COUCHDB_URL=$APPIOT_COUCHDB_URL \
   -e APPIOT_COUCHDB_USER=$APPIOT_COUCHDB_USER \

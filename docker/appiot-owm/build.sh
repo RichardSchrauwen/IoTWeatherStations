@@ -1,1 +1,1 @@
-sudo docker build -t appiot-owm .
+docker build -t appiot-owm .

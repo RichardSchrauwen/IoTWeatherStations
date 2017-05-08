@@ -9,10 +9,10 @@
 # docker cp <container-name>:/usr/local/etc/couchdb/local.ini /host/local.ini
 
 # For easy restart
-sudo docker rm -f couchdb
+docker rm -f couchdb
 
 # Run container
-sudo docker run \
+docker run \
   -p 5984:5984 \
   --name couchdb \
   -d couchdb
