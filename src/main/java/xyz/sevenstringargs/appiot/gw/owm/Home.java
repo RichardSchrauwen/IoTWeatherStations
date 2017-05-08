@@ -1,4 +1,4 @@
-package xyz.sevenstringargs.appiot.owmgw;
+package xyz.sevenstringargs.appiot.gw.owm;
 
 import com.ericsson.appiot.gateway.GatewayException;
 import com.ericsson.appiot.gateway.core.DefaultHomeDirectory;
@@ -8,12 +8,14 @@ import com.google.gson.Gson;
 public class Home extends DefaultHomeDirectory {
     private RegistrationTicket registrationTicket;
 
-    public Home(String registrationTicketJSON){
+    public Home(String registrationTicketJSON) {
         registrationTicket = new Gson().fromJson(registrationTicketJSON, RegistrationTicket.class);
     }
 
+    // In-Memory Registration Ticket -----------------------------------------------------------------------------------
+
     @Override
-    public void saveRegistrationTicket(RegistrationTicket registrationTicket) throws GatewayException{
+    public void saveRegistrationTicket(RegistrationTicket registrationTicket) throws GatewayException {
         this.registrationTicket = registrationTicket;
     }
 
@@ -26,4 +28,6 @@ public class Home extends DefaultHomeDirectory {
     public void deleteRegistrationTicket() throws GatewayException {
         this.registrationTicket = null;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
 }

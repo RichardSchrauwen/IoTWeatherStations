@@ -1,4 +1,4 @@
-package xyz.sevenstringargs.appiot.owmgw;
+package xyz.sevenstringargs.appiot.gw.owm;
 
 import com.ericsson.appiot.gateway.GatewayException;
 import com.ericsson.appiot.gateway.device.Device;
@@ -24,7 +24,6 @@ public class CurrentWeatherDevice implements Runnable {
     private static final int RESOURCE_LAT_ID = 5514;
     private static final int RESOURCE_LON_ID = 5515;
 
-
     private static final int SMART_OBJECT_TEMP_ID = 3303;
     private static final int SMART_OBJECT_HUM_ID = 3304;
     private static final int SMART_OBJECT_BAR_ID = 3315;
@@ -32,7 +31,7 @@ public class CurrentWeatherDevice implements Runnable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    // AppIoT Device SettingsDTO ------------------------------------------------------------------------------------------
+    // AppIoT Device Settings ------------------------------------------------------------------------------------------
 
     private static final String OWM_SETTING_CATEGORY_NAME = "OWM Device Settings";
     private static final String OWM_SETTING_INTERVAL_NAME = "Interval";
@@ -50,7 +49,7 @@ public class CurrentWeatherDevice implements Runnable {
 
     // -----------------------------------------------------------------------------------------------------------------
 
-    // SettingsDTO --------------------------------------------------------------------------------------------------------
+    // Settings --------------------------------------------------------------------------------------------------------
 
     private int interval;
     private boolean enabled;
@@ -106,13 +105,17 @@ public class CurrentWeatherDevice implements Runnable {
 
     private static final int MILLI_SECONDS = 1000;
 
+    private final Logger logger = Logger.getLogger(this.getClass().getName());
+
     // -----------------------------------------------------------------------------------------------------------------
 
-    private final Logger logger = Logger.getLogger(this.getClass().getName());
+    // Poller ----------------------------------------------------------------------------------------------------------
 
     private Device device;
     private OpenWeatherMap owmClient;
     private boolean running;
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     public CurrentWeatherDevice(OpenWeatherMap owmClient, Device device) {
         this.running = false;
@@ -137,95 +140,7 @@ public class CurrentWeatherDevice implements Runnable {
         updateSettings();
     }
 
-    private void clearSettings() {
-        this.enabled = ENABLED_UNSET;
-        this.interval = INTERVAL_UNSET;
-        this.cityId = CITY_ID_UNSET;
-        this.temperature5700Resource = null;
-        this.humidity5700Resource = null;
-        logger.info(String.format("Cleared settings for device %s", device.getEndpoint()));
-    }
-
-    private boolean validCityId() {
-        return cityId != CITY_ID_UNSET;
-    }
-
-    private boolean validInterval() {
-        return interval >= INTERVAL_MIN;
-    }
-
-    private boolean enabled() {
-        return validInterval() && validCityId() && enabled;
-    }
-
-    private void updateSettings() {
-        Optional<SettingCategory> settingsOptional = device.
-                getDeviceRegistration().
-                getSettingCategories().
-                stream().
-                filter(s -> s.getName().equals(OWM_SETTING_CATEGORY_NAME)).
-                findFirst();
-
-        if (!settingsOptional.isPresent()) {
-            return;
-        }
-        SettingCategory settings = settingsOptional.get();
-
-        interval = Integer.parseInt(settings.getSettingValue(OWM_SETTING_INTERVAL_NAME)) * MILLI_SECONDS;
-        cityId = Long.parseLong(settings.getSettingValue(OWM_SETTING_CITY_ID_NAME));
-        enabled = Boolean.parseBoolean(settings.getSettingValue(OWM_SETTING_CITY_ENABLED_NAME));
-
-        SmartObject tempSO = device.getSmartObjectInstance(SMART_OBJECT_TEMP_ID, 0);
-        if (tempSO != null) {
-            temperature5601Resource = tempSO.getResource(RESOURCE_MIN_VALUE_ID);
-            temperature5602Resource = tempSO.getResource(RESOURCE_MAX_VALUE_ID);
-            temperature5700Resource = tempSO.getResource(RESOURCE_VALUE_ID);
-            temperature5701Resource = tempSO.getResource(RESOURCE_UNIT_ID);
-        }
-
-        SmartObject humSO = device.getSmartObjectInstance(SMART_OBJECT_HUM_ID, 0);
-        if (humSO != null) {
-            humidity5700Resource = humSO.getResource(RESOURCE_VALUE_ID);
-            humidity5701Resource = humSO.getResource(RESOURCE_UNIT_ID);
-        }
-
-        SmartObject barSO = device.getSmartObjectInstance(SMART_OBJECT_BAR_ID, 0);
-        if (barSO != null) {
-            barometer5700Resource = barSO.getResource(RESOURCE_VALUE_ID);
-            barometer5701Resource = barSO.getResource(RESOURCE_UNIT_ID);
-        }
-
-        SmartObject locSO = device.getSmartObjectInstance(SMART_OBJECT_LOC_ID, 0);
-        if (locSO != null) {
-            location5514Resource = locSO.getResource(RESOURCE_LAT_ID);
-            location5515Resource = locSO.getResource(RESOURCE_LON_ID);
-        }
-
-        logger.info(String.format("Updated settings for device %s", device.getEndpoint()));
-    }
-
-    public synchronized void start() {
-        if (running) {
-            return;
-        }
-        running = true;
-
-        new Thread(this).start();
-    }
-
-    public synchronized void update(Device device) {
-        this.device = device;
-        clearSettings();
-        updateSettings();
-    }
-
-    public synchronized void update(OpenWeatherMap owmClient) {
-        this.owmClient = owmClient;
-    }
-
-    public synchronized void stop() {
-        running = false;
-    }
+    // Internal Execution Loop / Poll ---------------------------------------------------------------------------------
 
     private void loop() {
         for (SmartObject so : device.getSmartObjects()) {
@@ -359,6 +274,106 @@ public class CurrentWeatherDevice implements Runnable {
 
         // -------------------------------------------------------------------------------------------------------------
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Poller Settings -------------------------------------------------------------------------------------------------
+
+    private boolean validCityId() {
+        return cityId != CITY_ID_UNSET;
+    }
+
+    private boolean validInterval() {
+        return interval >= INTERVAL_MIN;
+    }
+
+    private boolean enabled() {
+        return validInterval() && validCityId() && enabled;
+    }
+
+    private void clearSettings() {
+        this.enabled = ENABLED_UNSET;
+        this.interval = INTERVAL_UNSET;
+        this.cityId = CITY_ID_UNSET;
+        this.temperature5700Resource = null;
+        this.humidity5700Resource = null;
+        logger.info(String.format("Cleared settings for device %s", device.getEndpoint()));
+    }
+
+    private void updateSettings() {
+        Optional<SettingCategory> settingsOptional = device.
+                getDeviceRegistration().
+                getSettingCategories().
+                stream().
+                filter(s -> s.getName().equals(OWM_SETTING_CATEGORY_NAME)).
+                findFirst();
+
+        if (!settingsOptional.isPresent()) {
+            return;
+        }
+        SettingCategory settings = settingsOptional.get();
+
+        interval = Integer.parseInt(settings.getSettingValue(OWM_SETTING_INTERVAL_NAME)) * MILLI_SECONDS;
+        cityId = Long.parseLong(settings.getSettingValue(OWM_SETTING_CITY_ID_NAME));
+        enabled = Boolean.parseBoolean(settings.getSettingValue(OWM_SETTING_CITY_ENABLED_NAME));
+
+        SmartObject tempSO = device.getSmartObjectInstance(SMART_OBJECT_TEMP_ID, 0);
+        if (tempSO != null) {
+            temperature5601Resource = tempSO.getResource(RESOURCE_MIN_VALUE_ID);
+            temperature5602Resource = tempSO.getResource(RESOURCE_MAX_VALUE_ID);
+            temperature5700Resource = tempSO.getResource(RESOURCE_VALUE_ID);
+            temperature5701Resource = tempSO.getResource(RESOURCE_UNIT_ID);
+        }
+
+        SmartObject humSO = device.getSmartObjectInstance(SMART_OBJECT_HUM_ID, 0);
+        if (humSO != null) {
+            humidity5700Resource = humSO.getResource(RESOURCE_VALUE_ID);
+            humidity5701Resource = humSO.getResource(RESOURCE_UNIT_ID);
+        }
+
+        SmartObject barSO = device.getSmartObjectInstance(SMART_OBJECT_BAR_ID, 0);
+        if (barSO != null) {
+            barometer5700Resource = barSO.getResource(RESOURCE_VALUE_ID);
+            barometer5701Resource = barSO.getResource(RESOURCE_UNIT_ID);
+        }
+
+        SmartObject locSO = device.getSmartObjectInstance(SMART_OBJECT_LOC_ID, 0);
+        if (locSO != null) {
+            location5514Resource = locSO.getResource(RESOURCE_LAT_ID);
+            location5515Resource = locSO.getResource(RESOURCE_LON_ID);
+        }
+
+        logger.info(String.format("Updated settings for device %s", device.getEndpoint()));
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Poller Control Methods -----------------------------------------------------------------------------------------
+
+    public synchronized void start() {
+        if (running) {
+            return;
+        }
+        running = true;
+
+        new Thread(this).start();
+    }
+
+    public synchronized void update(Device device) {
+        this.device = device;
+        clearSettings();
+        updateSettings();
+    }
+
+    public synchronized void update(OpenWeatherMap owmClient) {
+        this.owmClient = owmClient;
+    }
+
+    public synchronized void stop() {
+        running = false;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     // Runnable interface ----------------------------------------------------------------------------------------------
 

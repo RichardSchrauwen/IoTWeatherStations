@@ -1,4 +1,4 @@
-package xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb;
+package xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb.dto;
 
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistration;
 import com.ericsson.appiot.gateway.dto.ResourceLink;
@@ -11,14 +11,16 @@ import java.util.List;
 
 public class DeviceRegistrationDTO extends CouchDbDocument {
 
+    // ID property for CouchDBDocument
     @JsonProperty("_id")
     private String endpoint;
-
     private String gatewayId;
     private String name;
     private boolean internal;
     private List<ResourceLink> resourceLinks;
     private List<SettingCategoryDTO> settingCategories = new ArrayList<>();
+
+    // Override CouchDBDocument ID -------------------------------------------------------------------------------------
 
     @Override
     public void setId(String id) {
@@ -29,6 +31,10 @@ public class DeviceRegistrationDTO extends CouchDbDocument {
     public String getId() {
         return endpoint;
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Getters & Setters -----------------------------------------------------------------------------------------------
 
     public String getGatewayId() {
         return gatewayId;
@@ -70,6 +76,18 @@ public class DeviceRegistrationDTO extends CouchDbDocument {
         this.settingCategories = settingCategories;
     }
 
+    public boolean isInternal() {
+        return internal;
+    }
+
+    public void setInternal(boolean internal) {
+        this.internal = internal;
+    }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Helper methods ----------------------------------------------------------------------------------------------
+
     public static DeviceRegistration toAppIoTModel(DeviceRegistrationDTO dto) {
         DeviceRegistration reg = new DeviceRegistration();
         reg.setResourceLinks(dto.getResourceLinks());
@@ -94,11 +112,5 @@ public class DeviceRegistrationDTO extends CouchDbDocument {
         return dto;
     }
 
-    public boolean isInternal() {
-        return internal;
-    }
-
-    public void setInternal(boolean internal) {
-        this.internal = internal;
-    }
+    // -------------------------------------------------------------------------------------------------------------
 }
