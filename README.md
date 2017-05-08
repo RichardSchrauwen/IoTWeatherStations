@@ -12,7 +12,7 @@ $ ./build.sh
 # Change directory to docker/couchdb
 cd docker/couchdb
 
-# Run couchdb. To configure the container see comments in the run.sh file.
+# Run CouchDB. To configure the container see comments in the run.sh file.
 ./run.sh
 ```
 
