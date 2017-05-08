@@ -6,6 +6,11 @@
 
 ###### Create Settings Category
 
+Create a new Settings Category called 'OWM Gateway Settings'.
+Toggle Hardware Settings to true.
+Add a Setting with the Name 'API-Key' and the Data-Type 'Text'.
+Leave the rest as is and Save.
+
 ###### Create Gateway Type
 
 ###### Register Gateway
