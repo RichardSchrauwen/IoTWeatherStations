@@ -1,3 +1,5 @@
+#!/bin/bash
+
 if [ $# -eq 0 ]; then
   echo 'Missing config file path'
   exit 1

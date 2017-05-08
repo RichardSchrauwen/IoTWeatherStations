@@ -54,3 +54,7 @@ fabric.properties
 *.swp
 docker/appiot-owm/config/*
 !docker/appiot-owm/config/example
+
+config/*
+!config/example
+logs
