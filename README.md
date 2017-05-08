@@ -50,6 +50,14 @@ Get an Open Weather Map API key if you don't have one.
 
 ###### Register Device
 
+* Register a new device based on the 'OWM-Device'
+* Enter any name
+* Enter a unique Endpoint
+* Select the 'OWM-Device' Device Type
+* Select your registered Gateway
+* Add the 'OWM-Device Settings' and fill in the CityID of the city you want to poll for data
+* Save
+
 ## Server Setup
 
 ###### Build the OWM-gateway
