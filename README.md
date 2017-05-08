@@ -1,8 +1,8 @@
 # AppIoT | Open Weather Map - 2.0
 
-## AppIoT Setup
-
 This is an AppIoT soft-gateway will poll Open Weather Map based on its registered devices. The gateway uses CouchDB as backing storage for its device registry and is made to run with Docker. Multiple gateways can use the same CouchDB instance as long as the gateways are registered in the same device network.
+
+## AppIoT Setup
 
 #### Gateway
 
