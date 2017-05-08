@@ -13,7 +13,17 @@
 
 ###### Create Gateway Type
 
+* Create a Gateway Type with the Name 'OWM-Gateway'
+* Add the previously created Setting Category 'OWM Gateway Settings' to the type.
+* Save
+
 ###### Register Gateway
+
+Get an Open Weather Map API key if you don't have one.
+
+* Register a gateway of the 'OWM-Gateway' type.
+* Enter your Open Weather Map API-key in the API-Key settings field
+* Save
 
 #### Device
 
