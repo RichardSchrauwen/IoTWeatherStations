@@ -19,6 +19,16 @@
 
 ###### Create Settings Category
 
+* Create a new Settings Category called 'OWM Device Settings'.
+* Toggle Hardware Settings to true.
+* Add a Setting with the Name 'CityID' and the Data-Type 'Text'.
+* Leave the rest as is
+* Add a Setting with the Name 'Enabled' and the Data-Type 'Boolean' with the Value 'True'.
+* Leave the rest as is
+* Add a Setting with the Name 'Interval' and the Data-Type 'Number' with the Value '60'.
+* Leave the rest as is
+* Save
+
 ###### Create Device Type
 
 ###### Register Device
