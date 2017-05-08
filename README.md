@@ -2,6 +2,8 @@
 
 ## AppIoT Setup
 
+This is an AppIoT soft-gateway will poll Open Weather Map based on its registered devices. The gateway uses CouchDB as backing storage for its device registry and is made to run with Docker. Multiple gateways can use the same CouchDB instance as long as the gateways are registered in the same device network.
+
 #### Gateway
 
 ###### Create Settings Category
@@ -24,6 +26,8 @@ Get an Open Weather Map API key if you don't have one.
 * Register a gateway of the 'OWM-Gateway' type.
 * Enter your Open Weather Map API-key in the API-Key settings field
 * Save
+
+------
 
 #### Device
 
