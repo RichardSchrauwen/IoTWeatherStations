@@ -41,6 +41,13 @@ Get an Open Weather Map API key if you don't have one.
 
 ###### Create Device Type
 
+* Create a new Device Type with the Name 'OWM-Device'
+* Set Device Standard to LWM2M
+* Discover at registration set to false
+* Add four smart objects: Barometer(3315), Humidity(3304), Location(3336), Temperature(3303)
+* Add the newly created Settings Category 'OWM Device Settings'
+* Save
+
 ###### Register Device
 
 ## Server Setup
