@@ -1,13 +1,21 @@
 # AppIoT | Open Weather Map - 2.0
 
-## Build the OWM-gateway
+## AppIoT Setup
+
+##### Gateway
+
+##### Device
+
+## Server Setup
+
+###### Build the OWM-gateway
 
 ``` bash
 $ ./build.sh
 
 ``` 
 
-## Run CouchDB with Docker
+###### Run CouchDB with Docker
 ```bash
 # Change directory to docker/couchdb
 cd docker/couchdb
@@ -16,7 +24,7 @@ cd docker/couchdb
 ./run.sh
 ```
 
-## Run 
+###### Run without Docker
 
 ```bash
 # Create a config file based on the config/example file.
@@ -25,7 +33,7 @@ cd docker/couchdb
 ./run.sh config/your-config
 ```
 
-## Run with Docker
+###### Run with Docker
 
 ```bash
 # Change directory to docker/appiot-owm
