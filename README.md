@@ -17,3 +17,15 @@ $ ./build.sh
 ```
 
 ## Run with Docker
+
+```bash
+# Change directory to docker/appiot-owm
+cd docker/appiot-owm
+
+# Build the docker image
+./build.sh
+
+# Create a config file based on the docker/appiot-owm/config/example
+# Run the run.sh script with your config file as the first argument
+./run.sh config/your-docker-config
+```
