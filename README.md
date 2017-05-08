@@ -2,9 +2,21 @@
 
 ## AppIoT Setup
 
-##### Gateway
+#### Gateway
 
-##### Device
+###### Create Settings Category
+
+###### Create Gateway Type
+
+###### Register Gateway
+
+#### Device
+
+###### Create Settings Category
+
+###### Create Device Type
+
+###### Register Device
 
 ## Server Setup
 
