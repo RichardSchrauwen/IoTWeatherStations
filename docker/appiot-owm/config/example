@@ -1,0 +1,12 @@
+# The name will be appended like so 'appiot-owm-<NAME_OF_CONTAINER>' to the container
+export APPIOT_CONTAINER_NAME='<NAME_OF_CONTAINER>'
+
+# Registration ticket in json string format
+export APPIOT_REGISTRATION_TICKET='<REGISTRATION_TICKET>'
+
+# CouchDB URL, for example: http://localhost:5984
+export APPIOT_COUCHDB_URL='<COUCHDB_URL>'
+
+# If the db uses authentication
+export APPIOT_COUCHDB_USER='<COUCHDB_USER>'
+export APPIOT_COUCHDB_PASSWORD='<COUCHDB_PASSWORD>'
