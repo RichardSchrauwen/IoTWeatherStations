@@ -1,4 +1,4 @@
-package xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb.dto;
+package com.ericcson.appiot.examples.gw.deviceregistry.couchdb.dto;
 
 import com.ericsson.appiot.gateway.dto.SettingCategory;
 

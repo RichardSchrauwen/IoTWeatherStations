@@ -1,5 +1,6 @@
-package xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb;
+package com.ericcson.appiot.examples.gw.deviceregistry.couchdb;
 
+import com.ericcson.appiot.examples.gw.deviceregistry.couchdb.dto.DeviceRegistrationDTO;
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistration;
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistry;
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistryException;
@@ -11,7 +12,6 @@ import org.ektorp.http.HttpClient;
 import org.ektorp.http.StdHttpClient;
 import org.ektorp.impl.StdCouchDbConnector;
 import org.ektorp.impl.StdCouchDbInstance;
-import xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb.dto.DeviceRegistrationDTO;
 
 import java.net.MalformedURLException;
 import java.util.ArrayList;

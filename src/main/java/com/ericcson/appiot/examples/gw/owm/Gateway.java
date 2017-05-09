@@ -1,4 +1,4 @@
-package xyz.sevenstringargs.appiot.gw.owm;
+package com.ericcson.appiot.examples.gw.owm;
 
 import com.ericsson.appiot.gateway.AppIoTGateway;
 import com.ericsson.appiot.gateway.GatewayException;
@@ -10,9 +10,8 @@ import com.ericsson.appiot.gateway.dto.DeviceRegisterRequest;
 import com.ericsson.appiot.gateway.dto.Operation;
 import com.ericsson.appiot.gateway.dto.SettingCategory;
 import net.aksingh.owmjapis.OpenWeatherMap;
-import xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb.Registry;
+import com.ericcson.appiot.examples.gw.deviceregistry.couchdb.Registry;
 
-import java.net.MalformedURLException;
 import java.util.*;
 import java.util.logging.Logger;
 

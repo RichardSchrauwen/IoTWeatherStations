@@ -1,4 +1,4 @@
-package xyz.sevenstringargs.appiot.gw.owm;
+package com.ericcson.appiot.examples.gw.owm;
 
 import com.ericsson.appiot.gateway.GatewayException;
 import com.ericsson.appiot.gateway.device.Device;

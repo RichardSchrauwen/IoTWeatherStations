@@ -1,8 +1,8 @@
-package xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb;
+package com.ericcson.appiot.examples.gw.deviceregistry.couchdb;
 
+import com.ericcson.appiot.examples.gw.deviceregistry.couchdb.dto.DeviceRegistrationDTO;
 import org.ektorp.CouchDbConnector;
 import org.ektorp.support.CouchDbRepositorySupport;
-import xyz.sevenstringargs.appiot.gw.deviceregistry.couchdb.dto.DeviceRegistrationDTO;
 
 public class Repository extends CouchDbRepositorySupport<DeviceRegistrationDTO> {
     public Repository(CouchDbConnector conn) {

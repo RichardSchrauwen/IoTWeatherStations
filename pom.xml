@@ -23,7 +23,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>xyz.sevenstringargs.appiot.gw.owm.Gateway</mainClass>
+                            <mainClass>com.ericcson.appiot.examples.gw.owm.Gateway</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
