@@ -17,16 +17,10 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class Gateway extends DeviceAppIoTListener {
-    private static final String ENV_KEY_REGISTRATION_TICKET = "APPIOT_REGISTRATION_TICKET";
 
-    private static final String ENV_KEY_COUCHDB_URL = "APPIOT_COUCHDB_URL";
-    private static final String ENV_KEY_COUCHDB_USER = "APPIOT_COUCHDB_USER";
-    private static final String ENV_KEY_COUCHDB_PASSWORD = "APPIOT_COUCHDB_PASSWORD";
+    // Start Up / Settings Plumbing ------------------------------------------------------------------------------------
 
-    private static final String OWM_GATEWAY_SETTINGS_NAME = "OWM Gateway Settings";
-    private static final String OWM_GATEWAY_API_KEY_NAME = "API-Key";
-
-    public static void main(String[] args) throws InterruptedException, MalformedURLException, GatewayException {
+    public static void main(String[] args) {
         Logger mainLogger = Logger.getAnonymousLogger();
 
         String ticket = System.getenv(ENV_KEY_REGISTRATION_TICKET);
@@ -35,24 +29,51 @@ public class Gateway extends DeviceAppIoTListener {
         String dbPassword = System.getenv(ENV_KEY_COUCHDB_PASSWORD);
 
         if (ticket == null || ticket.length() < 1) {
-            mainLogger.severe(String.format("Missing registration ticket | %s is either not set", ENV_KEY_REGISTRATION_TICKET));
+            mainLogger.severe(String.format("Missing registration ticket | %s is not set", ENV_KEY_REGISTRATION_TICKET));
             System.exit(1);
         }
 
         Home home = new Home(ticket);
         DeviceManager deviceManager = new DeviceManager();
 
-        mainLogger.info(String.format("DB connection info | URL: %s, User: %s", dbUrl, dbUser));
-        Registry registry;
-        if (dbUser != null && dbUser.length() > 0 && dbPassword != null && dbPassword.length() > 0) {
-            registry = new Registry(home.getRegistrationTicket().getDataCollectorId(), dbUrl, dbUser, dbPassword);
-        } else {
-            registry = new Registry(home.getRegistrationTicket().getDataCollectorId(), dbUrl);
-        }
+        try {
+            mainLogger.info(String.format("DB connection info | URL: %s, User: %s", dbUrl, dbUser));
+            Registry registry;
+            if (dbUser != null && dbUser.length() > 0 && dbPassword != null && dbPassword.length() > 0) {
+                registry = new Registry(home.getRegistrationTicket().getDataCollectorId(), dbUrl, dbUser, dbPassword);
+            } else {
+                registry = new Registry(home.getRegistrationTicket().getDataCollectorId(), dbUrl);
+            }
 
-        Gateway gateway = new Gateway(home, deviceManager, registry);
-        gateway.run();
+            Gateway gateway = new Gateway(home, deviceManager, registry);
+            gateway.run();
+        } catch (GatewayException e) {
+            e.printStackTrace();
+        }
     }
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // AppIoT Env Keys -------------------------------------------------------------------------------------------------
+
+    private static final String ENV_KEY_REGISTRATION_TICKET = "APPIOT_REGISTRATION_TICKET";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // CouchDB Env Keys ------------------------------------------------------------------------------------------------
+
+    private static final String ENV_KEY_COUCHDB_URL = "APPIOT_COUCHDB_URL";
+    private static final String ENV_KEY_COUCHDB_USER = "APPIOT_COUCHDB_USER";
+    private static final String ENV_KEY_COUCHDB_PASSWORD = "APPIOT_COUCHDB_PASSWORD";
+
+    // -----------------------------------------------------------------------------------------------------------------
+
+    // Setting Keys ----------------------------------------------------------------------------------------------------
+
+    private static final String OWM_GATEWAY_SETTINGS_NAME = "OWM Gateway Settings";
+    private static final String OWM_GATEWAY_API_KEY_NAME = "API-Key";
+
+    // -----------------------------------------------------------------------------------------------------------------
 
     // OWM Gateway -----------------------------------------------------------------------------------------------------
 
@@ -62,14 +83,14 @@ public class Gateway extends DeviceAppIoTListener {
     private Map<String, CurrentWeatherDevice> pollerRegistry = new HashMap<>();
     private String apiKey;
 
-    public Gateway(Home home, DeviceManager deviceManager, DeviceRegistry registry) throws MalformedURLException, GatewayException {
+    public Gateway(Home home, DeviceManager deviceManager, DeviceRegistry registry) {
         super(deviceManager);
         appiotGateway = new AppIoTGateway(this);
         appiotGateway.setHomeDirectory(home);
         appiotGateway.setDeviceRegistry(registry);
     }
 
-    private void run() throws InterruptedException {
+    private void run() {
         appiotGateway.start();
 
         logger.info("Starting AppIoT Gateway");

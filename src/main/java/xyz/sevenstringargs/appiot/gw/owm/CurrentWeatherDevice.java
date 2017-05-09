@@ -154,9 +154,7 @@ public class CurrentWeatherDevice implements Runnable {
             if (enabled()) {
                 try {
                     poll();
-                } catch (SenMlException e) {
-                    e.printStackTrace();
-                } catch (GatewayException e) {
+                } catch (SenMlException | GatewayException e) {
                     e.printStackTrace();
                 }
 
