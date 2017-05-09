@@ -29,6 +29,7 @@ docker run \
   -e APPIOT_COUCHDB_URL=$APPIOT_COUCHDB_URL \
   -e APPIOT_COUCHDB_USER=$APPIOT_COUCHDB_USER \
   -e APPIOT_COUCHDB_PASSWORD=$APPIOT_COUCHDB_PASSWORD \
+  --net="host" \
   -d \
   --name "appiot-owm-$APPIOT_CONTAINER_NAME" appiot-owm
 
