@@ -58,3 +58,4 @@ docker/appiot-owm/config/*
 config/*
 !config/example
 logs
+target
