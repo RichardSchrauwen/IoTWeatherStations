@@ -1,70 +1,10 @@
-# AppIoT | Open Weather Map - 2.0
+# IoT Application based on Open Weather Map (OWM) API
 
 This is an AppIoT soft-gateway that will poll Open Weather Map based on its registered devices. The gateway uses CouchDB as backing storage for its device registry and the project includes instructions for running the database and gateway in docker containers. Multiple gateways can use the same CouchDB instance as long as the gateways are registered in the same device network.
 
 #### TODO
-* Cross device network support for device registry
-* DB re-connect strategy
-
-## AppIoT Setup
-
-#### Gateway
-
-###### Create Settings Category
-
-* Create a new Settings Category called 'OWM Gateway Settings'.
-* Toggle Hardware Settings to true.
-* Add a Setting with the Name 'API-Key' and the Data-Type 'Text'.
-* Leave the rest as is and Save.
-
-###### Create Gateway Type
-
-* Create a Gateway Type with the Name 'OWM-Gateway'
-* Add the previously created Setting Category 'OWM Gateway Settings' to the type.
-* Save
-
-###### Register Gateway
-
-Get an Open Weather Map API key if you don't have one.
-
-* Register a gateway of the 'OWM-Gateway' type.
-* Enter your Open Weather Map API-key in the API-Key settings field
-* Save
-
-------
-
-#### Device
-
-###### Create Settings Category
-
-* Create a new Settings Category called 'OWM Device Settings'.
-* Toggle Hardware Settings to true.
-* Add a Setting with the Name 'CityID' and the Data-Type 'Text'.
-* Leave the rest as is
-* Add a Setting with the Name 'Enabled' and the Data-Type 'Boolean' with the Value 'True'.
-* Leave the rest as is
-* Add a Setting with the Name 'Interval' and the Data-Type 'Number' with the Value '60'.
-* Leave the rest as is
-* Save
-
-###### Create Device Type
-
-* Create a new Device Type with the Name 'OWM-Device'
-* Set Device Standard to LWM2M
-* Discover at registration set to false
-* Add four smart objects: Barometer(3315), Humidity(3304), Location(3336), Temperature(3303)
-* Add the newly created Settings Category 'OWM Device Settings'
-* Save
-
-###### Register Device
-
-* Register a new device based on the 'OWM-Device'
-* Enter any name
-* Enter a unique Endpoint
-* Select the 'OWM-Device' Device Type
-* Select your registered Gateway
-* Add the 'OWM-Device Settings' and fill in the CityID of the city you want to poll for data
-* Save
+* REmove CouchDB dependency and go for cloud storage in the IoT platform itself
+* 
 
 ## Server Setup
 
