@@ -1,12 +1,12 @@
-package com.ericcson.appiot.examples.gw.owm;
+package org.examples.gw.owm;
 
-import com.ericsson.appiot.gateway.GatewayException;
-import com.ericsson.appiot.gateway.device.Device;
-import com.ericsson.appiot.gateway.device.smartobject.SmartObject;
-import com.ericsson.appiot.gateway.device.smartobject.resource.Resource;
-import com.ericsson.appiot.gateway.device.smartobject.resource.type.ResourceBase;
-import com.ericsson.appiot.gateway.dto.SettingCategory;
-import com.ericsson.appiot.gateway.senml.SenMlException;
+import org.gateway.GatewayException;
+import org.gateway.device.Device;
+import org.gateway.device.smartobject.SmartObject;
+import org.gateway.device.smartobject.resource.Resource;
+import org.gateway.device.smartobject.resource.type.ResourceBase;
+import org.gateway.dto.SettingCategory;
+import org.gateway.senml.SenMlException;
 import net.aksingh.owmjapis.CurrentWeather;
 import net.aksingh.owmjapis.OpenWeatherMap;
 
