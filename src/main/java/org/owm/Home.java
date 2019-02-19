@@ -1,4 +1,4 @@
-package com.ericcson.appiot.examples.gw.owm;
+package org.owm;
 
 import com.ericsson.appiot.gateway.GatewayException;
 import com.ericsson.appiot.gateway.core.DefaultHomeDirectory;

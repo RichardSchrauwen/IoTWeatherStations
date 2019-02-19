@@ -1,4 +1,4 @@
-package org.examples.gw.owm;
+package org.owm;
 
 import org.gateway.GatewayException;
 import org.gateway.device.Device;

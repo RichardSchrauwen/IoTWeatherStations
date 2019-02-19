@@ -1,4 +1,4 @@
-package com.ericcson.appiot.examples.gw.deviceregistry.couchdb.dto;
+package org.owm.couchdb.dto;
 
 import com.ericsson.appiot.gateway.dto.Setting;
 

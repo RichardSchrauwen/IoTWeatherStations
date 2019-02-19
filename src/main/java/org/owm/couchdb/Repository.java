@@ -1,4 +1,4 @@
-package com.ericcson.appiot.examples.gw.deviceregistry.couchdb;
+package org.owm.couchdb;
 
 import com.ericcson.appiot.examples.gw.deviceregistry.couchdb.dto.DeviceRegistrationDTO;
 import org.ektorp.CouchDbConnector;

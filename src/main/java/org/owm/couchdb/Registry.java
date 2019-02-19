@@ -1,6 +1,7 @@
-package com.ericcson.appiot.examples.gw.deviceregistry.couchdb;
+package org.owm.couchdb;
 
-import com.ericcson.appiot.examples.gw.deviceregistry.couchdb.dto.DeviceRegistrationDTO;
+import org.owm.couchdb.dto.DeviceRegistrationDTO;
+
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistration;
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistry;
 import com.ericsson.appiot.gateway.deviceregistry.DeviceRegistryException;

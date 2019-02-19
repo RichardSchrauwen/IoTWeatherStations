@@ -1,4 +1,6 @@
-package com.ericcson.appiot.examples.gw.owm;
+package org.owm;
+
+import org.owm.couchdb.Registry;
 
 import com.ericsson.appiot.gateway.AppIoTGateway;
 import com.ericsson.appiot.gateway.GatewayException;
@@ -10,7 +12,6 @@ import com.ericsson.appiot.gateway.dto.DeviceRegisterRequest;
 import com.ericsson.appiot.gateway.dto.Operation;
 import com.ericsson.appiot.gateway.dto.SettingCategory;
 import net.aksingh.owmjapis.OpenWeatherMap;
-import com.ericcson.appiot.examples.gw.deviceregistry.couchdb.Registry;
 
 import java.util.*;
 import java.util.logging.Logger;
